@@ -6,13 +6,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/redux/store";
 import { closeSignUpModal, openSignUpModal } from "@/redux/slices/modalSlice";
 import { EyeIcon, EyeSlashIcon, XMarkIcon } from "@heroicons/react/24/outline";
-// import {
-//   createUserWithEmailAndPassword,
-//   onAuthStateChanged,
-//   signInWithEmailAndPassword,
-//   updateProfile,
-// } from "firebase/auth";
-// import { auth } from "@/firebase";
+import {
+  createUserWithEmailAndPassword,
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+  updateProfile,
+} from "firebase/auth";
+import { auth } from "@/../firebase";
 // import { signInUser } from "@/redux/slices/userSlice";
 
 export default function SignUpModal() {
@@ -36,14 +36,14 @@ export default function SignUpModal() {
       displayName: name,
     });
 
-    dispatch(
-      signInUser({
-        name: userCredentials.user.displayName,
-        username: userCredentials.user.email!.split("@")[0],
-        email: userCredentials.user.email,
-        uid: userCredentials.user.uid,
-      }),
-    );
+    // dispatch(
+    //   signInUser({
+    //     name: userCredentials.user.displayName,
+    //     username: userCredentials.user.email!.split("@")[0],
+    //     email: userCredentials.user.email,
+    //     uid: userCredentials.user.uid,
+    //   }),
+    // );
   }
 
   async function handleGuestLogIn() {
