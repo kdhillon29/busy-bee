@@ -1,4 +1,6 @@
 import Sidebar from "./components/Sidebar";
+import SignUpPrompt from "./components/SignUpPrompt";
+import Widgets from "./components/Widgets";
 
 export default function Home() {
   return (
@@ -9,7 +11,12 @@ export default function Home() {
    "
       >
         <Sidebar />
+        <Widgets />
       </div>
+
+      {/* <CommentModal /> */}
+      <SignUpPrompt />
+      {/* <LoadingScreen /> */}
     </>
   );
 }
