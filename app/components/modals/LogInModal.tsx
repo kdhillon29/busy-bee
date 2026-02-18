@@ -10,28 +10,47 @@ import {
   openLogInModal,
   openSignUpModal,
 } from "@/redux/slices/modalSlice";
-import { EyeIcon, EyeSlashIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import {
+  EyeIcon,
+  EyeSlashIcon,
+  XMarkIcon,
+  ArrowPathIcon,
+} from "@heroicons/react/24/outline";
 
-// import { signInWithEmailAndPassword } from "firebase/auth";
-// import { auth } from "@/firebase";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "@/../firebase";
 
 export default function LogInModal() {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
   const isOpen = useSelector((state: RootState) => state.modals.logInModalOpen);
   const dispatch: AppDispatch = useDispatch();
 
   async function handleLogIn() {
-    // await signInWithEmailAndPassword(auth, email, password);
+    setLoading(true);
+    if (!email || !password) {
+      alert("Please fill all the fields");
+      setLoading(false);
+      return;
+    }
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      setLoading(false);
+    } catch (error) {
+      setError("Invalid email or password");
+      console.error("Error logging in:", error);
+      setLoading(false);
+    }
+    setLoading(false);
   }
 
   async function handleGuestLogIn() {
-    // await signInWithEmailAndPassword(
-    //   auth,
-    //   "guest12345000@gmail.com",
-    //   "12345678",
-    // );
+    setLoading(true);
+    await signInWithEmailAndPassword(auth, "guest123@gmail.com", "guest123");
+    setLoading(false);
   }
 
   return (
@@ -57,8 +76,19 @@ export default function LogInModal() {
         sm:rounded-xl outline-none
         "
         >
+          {loading && (
+            <div
+              className="fixed inset-0 bg-black bg-opacity-50 font-bold
+        flex items-center justify-center z-50"
+            >
+              {" "}
+              loading..
+              <ArrowPathIcon className="w-5 h-5 ms-2 animate-spin" />
+            </div>
+          )}
+
           <XMarkIcon
-            className="w-7 mt-5 ms-5 cursor-pointer"
+            className="w-7 mt-5 mr-5 ml-auto cursor-pointer"
             onClick={() => dispatch(closeLogInModal())}
           />
           <div className="pt-10 pb-20 px-4 sm:px-20">
@@ -93,6 +123,7 @@ export default function LogInModal() {
                   {showPassword ? <EyeSlashIcon /> : <EyeIcon />}
                 </div>
               </div>
+              {error && <span className="text-sm text-red-500">{error}</span>}
             </div>
             <button
               className="bg-[#F4AF01] text-white h-[48px]

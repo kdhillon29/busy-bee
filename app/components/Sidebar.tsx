@@ -10,6 +10,7 @@ import {
 } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import SidebarUserInfo from "./SidebarUserInfo";
+import SidebarUserMenu from "./SidebarUserMenu";
 
 export default function Sidebar() {
   return (
@@ -39,7 +40,7 @@ export default function Sidebar() {
           <SidebarLink Icon={UserIcon} text="Profile" />
           <SidebarLink Icon={EllipsisHorizontalCircleIcon} text="More" />
           <button
-            className="hidden md:block bg-[#F4AF01] w-[200px] h-[52px]
+            className="hidden xl:block bg-[#F4AF01] w-[200px] h-[52px]
            rounded-full text-white font-medium cursor-pointer shadow-md mt-2
           "
           >
@@ -47,7 +48,9 @@ export default function Sidebar() {
           </button>
         </ul>
 
-        <SidebarUserInfo />
+        <SidebarUserMenu>
+          <SidebarUserInfo />
+        </SidebarUserMenu>
       </div>
     </nav>
   );
@@ -67,7 +70,7 @@ function SidebarLink({ text, Icon }: SidebarLinkProps) {
   return (
     <li className="flex items-center text-xl mb-2 space-x-3 p-2.5">
       <Icon className="h-7" />
-      <span className="hidden xl:block">{text}</span>
+      <span className="hidden md:block text-md">{text}</span>
     </li>
   );
 }

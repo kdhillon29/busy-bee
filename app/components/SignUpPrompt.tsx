@@ -2,14 +2,14 @@
 
 import React from "react";
 import SignUpModal from "./modals/SignUpModal";
-import LogInModal from "./modals/LoginModal";
+import LogInModal from "./modals/LogInModal";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 
 export default function SignUpPrompt() {
-  //   const name = useSelector((state: RootState) => state.user.name);
-  //   console.log(name);
-  const name = "";
+  const name = useSelector((state: RootState) => state.user.name);
+  console.log(name);
+  //   const name = "";
 
   return (
     !name && (
