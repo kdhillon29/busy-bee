@@ -115,6 +115,7 @@ export default function LogInModal() {
                   className="w-full h-full ps-3 outline-none"
                   onChange={(event) => setPassword(event.target.value)}
                   value={password}
+                  onFocus={() => setError("")}
                 />
                 <div
                   onClick={() => setShowPassword(!showPassword)}

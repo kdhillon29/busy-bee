@@ -19,6 +19,7 @@ import {
 } from "firebase/auth";
 import { auth } from "@/../firebase";
 import { signInUser } from "@/redux/slices/userSlice";
+import { FirebaseError } from "firebase/app";
 
 export default function SignUpModal() {
   const [name, setName] = useState("");
@@ -26,6 +27,7 @@ export default function SignUpModal() {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<FirebaseError | string>("");
 
   const isOpen = useSelector(
     (state: RootState) => state.modals.signUpModalOpen,
@@ -40,24 +42,34 @@ export default function SignUpModal() {
       setLoading(false);
       return;
     }
-    const userCredentials = await createUserWithEmailAndPassword(
-      auth,
-      email,
-      password,
-    );
+    try {
+      const userCredentials = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password,
+      );
 
-    await updateProfile(userCredentials.user, {
-      displayName: name,
-    });
-    setLoading(false);
-    dispatch(
-      signInUser({
-        name: userCredentials.user.displayName,
-        username: userCredentials.user.email!.split("@")[0],
-        email: userCredentials.user.email,
-        uid: userCredentials.user.uid,
-      }),
-    );
+      await updateProfile(userCredentials.user, {
+        displayName: name,
+      });
+      setLoading(false);
+      dispatch(
+        signInUser({
+          name: userCredentials.user.displayName,
+          username: userCredentials.user.email!.split("@")[0],
+          email: userCredentials.user.email,
+          uid: userCredentials.user.uid,
+        }),
+      );
+    } catch (error) {
+      if (error instanceof FirebaseError) {
+        console.error("Error signing up:", error);
+        setError(error.message.split("Firebase: ")[1]);
+      } else {
+        setError("Error signing up. Please try again.");
+      }
+      setLoading(false);
+    }
   }
 
   async function handleGuestLogIn(e: React.FormEvent<HTMLButtonElement>) {
@@ -171,6 +183,7 @@ export default function SignUpModal() {
                   className="w-full h-full ps-3 outline-none"
                   onChange={(event) => setPassword(event.target.value)}
                   value={password}
+                  onFocus={() => setError("")}
                 />
                 <div
                   onClick={() => setShowPassword(!showPassword)}
@@ -179,6 +192,9 @@ export default function SignUpModal() {
                   {showPassword ? <EyeSlashIcon /> : <EyeIcon />}
                 </div>
               </div>
+              {error && (
+                <span className="text-sm text-red-500">{error as string}</span>
+              )}
             </div>
             <button
               className="bg-[#F4AF01] text-white h-[48px]
