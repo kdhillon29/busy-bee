@@ -4,14 +4,14 @@ import Moment from "react-moment";
 import { Timestamp } from "firebase/firestore";
 
 interface PostHeaderProps {
-  username: string;
-  name: string;
+  username?: string;
+  name?: string;
   timestamp?: Timestamp;
-  text: string;
+  text?: string;
   replyTo?: string;
 }
 
-export function PostHeader({
+export default function PostHeader({
   username,
   name,
   timestamp,
