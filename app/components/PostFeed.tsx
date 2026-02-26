@@ -44,18 +44,19 @@ export default function PostFeed() {
     "
     >
       <div
-        className="py-4 px-3 text-lg sm:text-xl sticky top-0
-          z-50 bg-white bg-opacity-80 backdrop-blur-sm font-bold
-          border-b border-gray-100
+        className="py-4 px-3 text-lg sm:text-xl sticky top-0 text-gray-500
+          z-50 bg-slate-50 bg-opacity-80 backdrop-blur-sm font-bold
+          border-b rounded-xl
         "
       >
         Home
       </div>
       <PostInput />
-
-      {posts.map((post) => (
-        <Post key={post.id} data={post.data()} id={post.id} />
-      ))}
+      <div className="ps-3 ">
+        {posts.map((post) => (
+          <Post key={post.id} data={post.data()} id={post.id} />
+        ))}
+      </div>
     </div>
   );
 }

@@ -2,9 +2,9 @@
 
 import { db } from "@/../firebase";
 import {
-  // openCommentModal,
+  openCommentModal,
   openLogInModal,
-  // setCommentDetails,
+  setCommentDetails,
 } from "@/redux/slices/modalSlice";
 import { RootState } from "@/redux/store";
 import {
@@ -78,16 +78,16 @@ export default function Post({ data, id }: PostProps) {
                 dispatch(openLogInModal());
                 return;
               }
-
-              // dispatch(
-              //   setCommentDetails({
-              //     name: data.name,
-              //     username: data.username,
-              //     id: id,
-              //     text: data.text,
-              //   }),
-              // );
-              // dispatch(openCommentModal());
+              console.log("Opening comment modal for post id:", id);
+              dispatch(
+                setCommentDetails({
+                  name: data.name,
+                  username: data.username,
+                  id: id,
+                  text: data.text,
+                }),
+              );
+              dispatch(openCommentModal());
             }}
           />
           {data.comments.length > 0 && (

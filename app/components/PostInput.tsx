@@ -1,7 +1,7 @@
 "use client";
 
 import { db } from "@/../firebase";
-import { openLogInModal } from "@/redux/slices/modalSlice";
+import { openLogInModal, closeCommentModal } from "@/redux/slices/modalSlice";
 import { RootState } from "@/redux/store";
 import {
   CalendarIcon,
@@ -29,9 +29,9 @@ interface PostInputProps {
 export default function PostInput({ insideModal }: PostInputProps) {
   const [text, setText] = useState("");
   const user = useSelector((state: RootState) => state.user);
-  //   const commentDetails = useSelector(
-  //     (state: RootState) => state.modals.commentPostDetails,
-  //   );
+  const commentDetails = useSelector(
+    (state: RootState) => state.modals.commentPostDetails,
+  );
   const dispatch = useDispatch();
 
   async function sendPost() {
@@ -51,7 +51,20 @@ export default function PostInput({ insideModal }: PostInputProps) {
 
     setText("");
   }
+  async function sendComment() {
+    const postRef = doc(db, "posts", commentDetails.id);
 
+    await updateDoc(postRef, {
+      comments: arrayUnion({
+        name: user.name,
+        username: user.username,
+        text: text,
+      }),
+    });
+
+    setText("");
+    dispatch(closeCommentModal());
+  }
   return (
     <div
       className="flex space-x-5 p-3 border-b
@@ -65,12 +78,12 @@ export default function PostInput({ insideModal }: PostInputProps) {
         width={44}
         height={44}
         alt={insideModal ? "Profile Picture" : "Logo"}
-        className="w-11 h-11 z-10 bg-white"
+        className="w-11 h-11 z-10 bg-white rounded-full"
       />
 
       <div className="w-full">
         <textarea
-          className="resize-none outline-none w-full
+          className="resize-none outline-none w-full rounded-xl p-1
             min-h-[50px] text-lg
            "
           placeholder={insideModal ? "Send your reply" : "What's happening!?"}
@@ -96,8 +109,7 @@ export default function PostInput({ insideModal }: PostInputProps) {
            text-sm cursor-pointer disabled:bg-opacity-60
            "
             disabled={!text}
-            // onClick={() => (insideModal ? sendComment() : sendPost())}
-            onClick={() => sendPost()}
+            onClick={() => (insideModal ? sendComment() : sendPost())}
           >
             Bumble
           </button>

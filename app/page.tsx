@@ -1,6 +1,7 @@
 import PostFeed from "./components/PostFeed";
 import Sidebar from "./components/Sidebar";
 import SignUpPrompt from "./components/SignUpPrompt";
+import CommentModal from "./components/modals/CommentModal";
 import Widgets from "./components/Widgets";
 
 export default function Home() {
@@ -16,7 +17,7 @@ export default function Home() {
         <Widgets />
       </div>
 
-      {/* <CommentModal /> */}
+      <CommentModal />
       <SignUpPrompt />
       {/* <LoadingScreen /> */}
     </>
