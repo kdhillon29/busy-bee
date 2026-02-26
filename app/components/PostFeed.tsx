@@ -54,8 +54,7 @@ export default function PostFeed() {
       <PostInput />
 
       {posts.map((post) => (
-        // <Post key={post.id} data={post.data()} id={post.id} />
-        <Post key={post.id} {...post.data()} />
+        <Post key={post.id} data={post.data()} id={post.id} />
       ))}
     </div>
   );
