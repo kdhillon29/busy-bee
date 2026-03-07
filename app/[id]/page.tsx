@@ -17,7 +17,7 @@ import React from "react";
 import { getDoc, doc } from "firebase/firestore";
 import { db } from "@/../firebase";
 import { notFound } from "next/navigation";
-import Layout from "@/layout";
+import CheckLogin from "@/components/CheckLogin";
 
 const fetchPost = async (id: string) => {
   const postRef = doc(db, "posts", id);
@@ -51,6 +51,7 @@ export default async function page({ params }: PageProps) {
    flex justify-center"
       >
         <Sidebar />
+        <CheckLogin />
         <div className="flex-grow max-w-2xl border-x border-gray-100">
           <div
             className="py-4 px-3 text-lg sm:text-xl sticky top-0
