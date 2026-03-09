@@ -28,8 +28,8 @@ export default function SidebarUserInfo() {
 
   return (
     <div
-      className=" md:absolute  sm:bottom-3 ps-6 md:ps-0 flex items-center justify-center
-    space-x-2 xl:p-3 xl:pe-6 hover:bg-gray-500 hover:bg-opacity-10
+      className=" sm:absolute  sm:bottom-6 ps-6 md:ps-0 flex items-center justify-center
+    space-x-2 xl:p-1  hover:bg-gray-500 hover:bg-opacity-10
     rounded-full transition cursor-pointer w-fit xl:w-[240px] 
     "
       // onClick={() => handleSignOut()}
