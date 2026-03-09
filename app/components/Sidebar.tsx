@@ -24,7 +24,10 @@ export default function Sidebar() {
     xl:mr-10
     "
     >
-      <div className="relative h-full flex flex-col items-center xl:items-start">
+      <div
+        className="relative h-full flex flex-col
+"
+      >
         <div className="py-3">
           <Image
             src={"/assets/busybee-logo2.png"}
@@ -48,13 +51,13 @@ export default function Sidebar() {
             <SidebarUserInfo />
           </SidebarUserMenu>
         )}
-        <button
+        {/* <button
           className="hidden xl:block bg-[#F4AF01] w-[200px] h-[52px]
            rounded-full text-white font-medium cursor-pointer shadow-md mt-2
           "
         >
           Bumble
-        </button>
+        </button> */}
       </div>
     </nav>
   );

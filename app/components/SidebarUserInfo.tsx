@@ -28,8 +28,8 @@ export default function SidebarUserInfo() {
 
   return (
     <div
-      className=" sm:absolute  sm:bottom-6 ps-6 md:ps-0 flex items-center justify-center
-    space-x-2 xl:p-1  hover:bg-gray-500 hover:bg-opacity-10
+      className=" md:absolute  sm:bottom-3 ps-6 sm:ps-0 flex items-center 
+    space-x-2 xl:p-3 hover:bg-gray-500 hover:bg-opacity-10
     rounded-full transition cursor-pointer w-fit xl:w-[240px] 
     "
       // onClick={() => handleSignOut()}
@@ -41,7 +41,7 @@ export default function SidebarUserInfo() {
         alt="Profile Picture"
         className="w-9 h-9"
       />
-      <div className="flex flex-col text-sm max-w-40">
+      <div className="hidden md:flex flex-col text-sm max-w-40">
         <span className="whitespace-nowrap text-ellipsis overflow-hidden font-bold">
           {user.name}
           <ArrowRightStartOnRectangleIcon className="w-4 h-4 ms-1 inline" />
