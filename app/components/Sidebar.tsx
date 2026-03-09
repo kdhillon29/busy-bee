@@ -20,14 +20,11 @@ export default function Sidebar() {
   const user = useSelector((state: RootState) => state.user);
   return (
     <nav
-      className="h-screen hidden sm:flex flex-col sticky top-0 p-3 xl:ml-20
+      className="h-screen hidden sm:flex flex-col sticky top-0 p-3 xl:ml-12
     xl:mr-10
     "
     >
-      <div
-        className="relative h-full flex flex-col
-      "
-      >
+      <div className="relative h-full flex flex-col items-center xl:items-start">
         <div className="py-3">
           <Image
             src={"/assets/busybee-logo2.png"}
@@ -44,13 +41,6 @@ export default function Sidebar() {
           <SidebarLink Icon={BookmarkIcon} text="Bookmarks" />
           <SidebarLink Icon={UserIcon} text="Profile" />
           <SidebarLink Icon={EllipsisHorizontalCircleIcon} text="More" />
-          <button
-            className="hidden xl:block bg-[#F4AF01] w-[200px] h-[52px]
-           rounded-full text-white font-medium cursor-pointer shadow-md mt-2
-          "
-          >
-            Bumble
-          </button>
         </ul>
 
         {user && (
@@ -58,6 +48,13 @@ export default function Sidebar() {
             <SidebarUserInfo />
           </SidebarUserMenu>
         )}
+        <button
+          className="hidden xl:block bg-[#F4AF01] w-[200px] h-[52px]
+           rounded-full text-white font-medium cursor-pointer shadow-md mt-2
+          "
+        >
+          Bumble
+        </button>
       </div>
     </nav>
   );
