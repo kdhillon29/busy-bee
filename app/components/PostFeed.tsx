@@ -13,7 +13,8 @@ import {
 } from "firebase/firestore";
 import { db } from "@/../firebase";
 import { useDispatch } from "react-redux";
-// import { closeLoadingScreen } from "@/redux/slices/loadingSlice";
+import { closeLoadingScreen } from "@/redux/slices/loadingSlice";
+import SidebarDrawer from "./SidebarDrawer";
 
 export default function PostFeed() {
   const [posts, setPosts] = useState<
@@ -29,7 +30,7 @@ export default function PostFeed() {
 
       setPosts(snapshotDocs);
 
-      //   dispatch(closeLoadingScreen());
+      dispatch(closeLoadingScreen());
     });
 
     return unsubscribe;
@@ -45,11 +46,14 @@ export default function PostFeed() {
     >
       <div
         className="py-4 px-3 text-lg sm:text-xl sticky top-0 text-gray-500
-          z-50 bg-slate-50 bg-opacity-80 backdrop-blur-sm font-bold
+          z-20 bg-slate-50 bg-opacity-80 backdrop-blur-sm font-bold
           border-b rounded-xl
         "
       >
-        Home
+        <div className="flex w-full items-center justify-between space-x-3">
+          <SidebarDrawer />
+          <p className="ml-auto">Home</p>
+        </div>
       </div>
       <PostInput />
       <div className="ps-3 ">

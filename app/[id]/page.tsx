@@ -18,6 +18,7 @@ import { getDoc, doc } from "firebase/firestore";
 import { db } from "@/../firebase";
 import { notFound } from "next/navigation";
 import CheckLogin from "@/components/CheckLogin";
+import SidebarDrawer from "@/components/SidebarDrawer";
 
 const fetchPost = async (id: string) => {
   const postRef = doc(db, "posts", id);
@@ -51,6 +52,7 @@ export default async function page({ params }: PageProps) {
    flex justify-center"
       >
         <Sidebar />
+        {/* <SidebarDrawer /> */}
         <CheckLogin />
         <div className="flex-grow max-w-2xl border-x border-gray-100">
           <div

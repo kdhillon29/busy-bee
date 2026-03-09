@@ -1,6 +1,10 @@
 "use client";
 
-import React from "react";
+import * as React from "react";
+import Box from "@mui/material/Box";
+import Drawer from "@mui/material/Drawer";
+import Button from "@mui/material/Button";
+import List from "@mui/material/List";
 import {
   HomeIcon,
   HashtagIcon,
@@ -10,33 +14,28 @@ import {
   UserIcon,
   EllipsisHorizontalCircleIcon,
 } from "@heroicons/react/24/outline";
+import { Bars3Icon } from "@heroicons/react/24/solid";
 import Image from "next/image";
-import SidebarUserInfo from "./SidebarUserInfo";
 import SidebarUserMenu from "./SidebarUserMenu";
+import SidebarUserInfo from "./SidebarUserInfo";
 import { RootState } from "@/redux/store";
 import { useSelector } from "react-redux";
+export default function TemporaryDrawer() {
+  const [open, setOpen] = React.useState(false);
 
-export default function Sidebar() {
+  const toggleDrawer = (newOpen: boolean) => () => {
+    setOpen(newOpen);
+  };
   const user = useSelector((state: RootState) => state.user);
-  return (
-    <nav
-      className="h-screen hidden sm:flex flex-col sticky top-0 p-3 xl:ml-20
-    xl:mr-10
-    "
-    >
-      <div
-        className="relative h-full flex flex-col
-      "
+
+  const DrawerList = (
+    <div>
+      <Box
+        sx={{ width: 250 }}
+        role="presentation"
+        onClick={toggleDrawer(false)}
       >
-        <div className="py-3">
-          <Image
-            src={"/assets/busybee-logo2.png"}
-            width={48}
-            height={48}
-            alt="Logo"
-          />
-        </div>
-        <ul>
+        <ul className="text-center">
           <SidebarLink Icon={HomeIcon} text="Home" />
           <SidebarLink Icon={HashtagIcon} text="Explore" />
           <SidebarLink Icon={BellIcon} text="Notifications" />
@@ -44,22 +43,25 @@ export default function Sidebar() {
           <SidebarLink Icon={BookmarkIcon} text="Bookmarks" />
           <SidebarLink Icon={UserIcon} text="Profile" />
           <SidebarLink Icon={EllipsisHorizontalCircleIcon} text="More" />
-          <button
-            className="hidden xl:block bg-[#F4AF01] w-[200px] h-[52px]
-           rounded-full text-white font-medium cursor-pointer shadow-md mt-2
-          "
-          >
-            Bumble
-          </button>
         </ul>
+      </Box>
+      {user.name && (
+        <SidebarUserMenu>
+          <SidebarUserInfo />
+        </SidebarUserMenu>
+      )}
+    </div>
+  );
 
-        {user && (
-          <SidebarUserMenu>
-            <SidebarUserInfo />
-          </SidebarUserMenu>
-        )}
-      </div>
-    </nav>
+  return (
+    <div className="sm:hidden ">
+      <Button onClick={toggleDrawer(true)}>
+        <Bars3Icon className="h-7" color="black" />
+      </Button>
+      <Drawer open={open} onClose={toggleDrawer(false)}>
+        {DrawerList}
+      </Drawer>
+    </div>
   );
 }
 
@@ -75,9 +77,9 @@ interface SidebarLinkProps {
 
 function SidebarLink({ text, Icon }: SidebarLinkProps) {
   return (
-    <li className="flex items-center text-xl mb-2 space-x-3 p-2.5">
+    <li className="flex ps-6 my-3 items-center text-lg space-x-3 p-2.5">
       <Icon className="h-7" />
-      <span className="hidden md:block text-md">{text}</span>
+      <span className=" text-sm">{text}</span>
     </li>
   );
 }
