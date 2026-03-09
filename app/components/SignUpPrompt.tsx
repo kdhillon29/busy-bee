@@ -1,13 +1,24 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import SignUpModal from "./modals/SignUpModal";
 import LogInModal from "./modals/LogInModal";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
+import { useDispatch } from "react-redux";
+import { closeLoadingScreen } from "@/redux/slices/loadingSlice";
 
 export default function SignUpPrompt() {
   const name = useSelector((state: RootState) => state.user.name);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if (!name) {
+      setTimeout(() => {
+        dispatch(closeLoadingScreen());
+      }, 2000);
+      //   router.push("/");
+    }
+  }, [name]);
 
   return (
     !name && (
