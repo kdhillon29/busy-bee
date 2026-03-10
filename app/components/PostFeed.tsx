@@ -15,6 +15,7 @@ import { db } from "@/../firebase";
 import { useDispatch } from "react-redux";
 import { closeLoadingScreen } from "@/redux/slices/loadingSlice";
 import SidebarDrawer from "./SidebarDrawer";
+import { HomeIcon } from "@heroicons/react/24/outline";
 
 export default function PostFeed() {
   const [posts, setPosts] = useState<
@@ -52,7 +53,9 @@ export default function PostFeed() {
       >
         <div className="flex w-full items-center justify-between space-x-3">
           <SidebarDrawer />
-          <p className="ml-auto">Home</p>
+          <p className="ml-auto">
+            <HomeIcon className="h-6" />
+          </p>
         </div>
       </div>
       <PostInput />
